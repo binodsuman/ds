@@ -1,0 +1,14 @@
+Write double link list program in java to implement Song Playlist. With Meny based option
+with following operations:
+
+Playlist Operations
+
+1 Add a Song to the playlist
+2 Delete a song from the playlist
+3 Find a song by name
+4 Next track / Previous track
+5 Sort playlist by song title
+6 Display playlist
+7 Exit
+
+
