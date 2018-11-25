@@ -1,4 +1,4 @@
-# ds
+# Data Structure
 All data structure java program like sorting, link list, graph etc
 
 This repository will have many kind of java based program on Data Structure like
