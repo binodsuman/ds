@@ -1,0 +1,195 @@
+package singlelinklist;
+
+
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+
+/**
+ * @author Binod Suman
+ */
+
+
+import java.util.Scanner;
+import java.util.Set;
+
+class Node {
+	int val;
+	Node next;
+
+	Node(int val) {
+		this.val = val;
+		next = null;
+	}
+}
+
+public class LinkList {
+	Node head = null;
+	int counter = 1;
+	Map<Integer,Node> nodeMap = new HashMap<Integer,Node>();
+
+	public static void main(String[] args) {
+		LinkList ll = new LinkList();
+		Scanner sc = new Scanner(System.in);
+
+		boolean exit = false;
+		while (!exit) {
+
+			System.out.print("Enter your option :");
+			char input = sc.next().charAt(0);
+			//System.out.println(input);
+
+			switch (input) {
+			case 'A':
+				System.out.print("Enter Number to add in LL ");
+				int val = sc.nextInt();
+				//System.out.println(val);
+				ll.addNumber(val);
+				break;
+			case 'E':
+				System.out.print("Exiting now");
+				exit = true;
+				break;
+			case 'D':
+				System.out.print("Enter number to be delete");
+				int number = sc.nextInt();
+				boolean found = ll.delete(number);
+				if(found)
+					System.out.println("Deleted");
+				else
+					System.out.println("Not found");
+				break;	
+			case 'R':
+				ll.reverse();
+				System.out.println("Reverse Done");
+				break;
+			case 'S':
+				System.out.println("This is your LL");
+				ll.showLL();
+				break;
+			case 'F':
+				System.out.print("How many element have to fill :");
+				number = sc.nextInt();
+				for(int i=1;i<=number;i++){
+					ll.addNumber(i*10);
+				}
+				System.out.println();
+				break;
+			case 'N':
+				System.out.print("Ener nth position from end :");
+				int position = sc.nextInt();
+				System.out.println(ll.fetchNthElement(position));
+				break;
+			case 'Z':
+				System.out.println("LL is rever order");
+				ll.showR();
+				break;
+			default:
+				System.out.println("Plase enter given option only");
+			}
+		}
+	}
+
+	/*private int fetchNthElement(int position){
+	   return nodeMap.get(nodeMap.size() - (position -1)).val;	
+	}*/
+	
+	private void showR(){
+		showReverse(head);
+	}
+	
+	private void showReverse(Node head){
+		if(head==null)return;
+		showReverse(head.next);
+		System.out.print(head.val +" ");
+	}
+	
+	private int fetchNthElement(int position){
+		   //return nodeMap.get(nodeMap.size() - (position -1)).val;
+		Node sPointer = head, fPointer = head;
+		for(int i = 0 ; i<position ; i++){
+			fPointer = fPointer.next;
+		}
+		while(fPointer!=null){
+			sPointer = sPointer.next;
+			fPointer = fPointer.next;
+		}
+		
+		return sPointer.val;
+	}
+	
+	private void addNumber(int val) {
+		
+		Node newNode = new Node(val);
+		nodeMap.put(counter++, newNode);
+		if (head == null) {
+			head = newNode;
+		} else {
+			Node temp = head;
+			while (temp.next != null) {
+				temp = temp.next;
+			}
+			temp.next = newNode;
+		}
+		
+		//Set<Integer> keySet = nodeMap.keySet();
+		//System.out.println(keySet);
+	}
+
+	private void showLL() {
+		if (head == null) {
+			System.out.println("LL is empty");
+		} else {
+			Node temp = head;
+			//System.out.println();
+			while (temp != null) {
+				System.out.print(temp.val+" ");
+				temp = temp.next;
+			}
+			System.out.println();
+			
+		}
+	}
+	
+	private boolean delete(int number){
+		if(head!=null){
+			if(head.val == number){
+				head = head.next;
+			}else{
+				Node curr = head, pre = head;
+				while(curr!=null){
+					if(curr.val == number){
+						pre.next = curr.next;
+						return true;
+					}else{
+						pre = curr;
+						curr = curr.next;
+					}
+				}
+			  return false;	 
+			}
+		}
+	  return false;	
+	}
+	
+	private void reverse(){
+		Node temp = null, nextNode = null;
+		while(head != null){
+			nextNode = head.next;
+			head.next = temp;
+			temp = head;
+			head = nextNode;
+		}
+		head = temp;
+	}
+	/*private void reverse(){
+		Node nextNode = null, temp = null;
+		while(head!=null){
+			nextNode = head.next;
+			head.next = temp;
+			temp = head;
+			head = nextNode;
+		}
+		head = temp;
+	}*/
+}
